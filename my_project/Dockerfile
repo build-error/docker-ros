@@ -18,7 +18,13 @@ RUN apt-get update \
     && chmod 0440 /etc/sudoers.d/${USERNAME}  \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update \
+    && apt-get install -y ffmpeg \
+    && apt-get install -y usbutils \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY entrypoint.sh /entrypoint.sh
+COPY bashrc /home/${USERNAME}/.bashrc
 
 ENTRYPOINT [ "/bin/bash", "/entrypoint.sh" ]
 
